@@ -12,8 +12,6 @@ use Steellgold\DamageModifier\events\DamagedEvent;
 class Main extends PluginBase {
     private string $version = "1.0";
 
-    public static array $items = [];
-
     public static $instance;
 
     public function onEnable() {
@@ -26,32 +24,14 @@ class Main extends PluginBase {
             return;
         }
 
-        if($this->getConfig()->exists("items")){
-            foreach ($this->getConfig()->get("items") as $item => $data){
-                var_dump($item);
-                var_dump($data);
-                var_dump("-------------------");
-            }
-        }
-
         $this->getServer()->getPluginManager()->registerEvents(new DamagedEvent(), $this);
     }
 
-    /**
-     * @return array
-     */
-    public static function getItems(): array {
-        return self::$items;
+    public function getItems(): array {
+        return self::getInstance()->getConfig()->get("items");
     }
 
-    /**
-     * @param array $items
-     */
-    public static function setItems(array $items): void {
-        self::$items = $items;
-    }
-
-    public static function getInstance() {
+    public static function getInstance() : Main {
         return self::$instance;
     }
 
