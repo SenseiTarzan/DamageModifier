@@ -6,7 +6,7 @@ items:
   264-0:
     # Define the world where the changes will be applied
     # If you define others, then remove the all and separate with a comma your worlds, if you want it to be everywhere, then do not change the "all".
-    world: [world]
+    worlds: [world]
     damage: 10
     # If you want the player's pushback to be modified but randomly then set on a scale of 100 a number
     # The number zero will be that the functionality is disabled and the number of KB defined is each time
