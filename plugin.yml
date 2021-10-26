@@ -2,5 +2,5 @@ name: DamageModifier
 version: 1.0.0
 author: Steellgold
 description: Modify the damage to your favorite items as you see fit
-main: Steellgold\DamageModifier\Main
+main: Steellgold\DamageModifier\DM
 api: 3.0.0
