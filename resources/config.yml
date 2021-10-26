@@ -7,9 +7,15 @@ items:
     # Define the world where the changes will be applied
     # If you define others, then remove the all and separate with a comma your worlds, if you want it to be everywhere, then do not change the "all".
     worlds: [world]
+    #
     damage: 10
     # If you want the player's pushback to be modified but randomly then set on a scale of 100 a number
     # The number zero will be that the functionality is disabled and the number of KB defined is each time
     # If the chance is set to 30, then the player will have a 30 percent chance of repelling the entity or player tapped with the knockback set
-    knockback: 10
+    knockback: 10 # leave 0 if you don't want to change the base KB
     knockback-chance: 0
+    # If you want show a tip when player hit a player with this item replace the 0 by "your tip"
+    # If you want set a chance to show tip, replace the 0 by a number, same system as the knockback-chance
+    # 0 = All time show tip when inflicted damage, {VICTIM} = player damaged
+    tip-on-hit: "§fYou have inflicted damage to the player §c{VICTIM}" # set "disable" to disable the feature
+    tip-chance: 20
