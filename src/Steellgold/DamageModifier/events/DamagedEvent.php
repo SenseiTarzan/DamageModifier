@@ -16,16 +16,14 @@ use Steellgold\DamageModifier\DM;
 
 class DamagedEvent implements Listener {
     public function onInteraction(EntityDamageByEntityEvent $ev){
-        $damager = $ev->getDamager(); $victim = $ev->getEntity();
-        if(!$damager instanceof Player) return;
-        if(!$victim instanceof Player) return;
+        $victim = $ev->getEntity();
+        $damager = $ev->getDamager();
+        if(!($damager instanceof Player && $victim instanceof Player)) return;
+        $item = $damager->getInventory()->getItemInHand();
+     
+        if(!(DM::getInstance()->InItems($dm = $item->getId()."-".$item->getDamage()) && DM::getInstance()->inWorld($damager,$dm))) return;
 
-        $dm = $damager->getInventory()->getItemInHand()->getId()."-".$damager->getInventory()->getItemInHand()->getDamage();
-        if(!array_key_exists($dm,DM::getInstance()->getItems())) return;
-        $dm = DM::getInstance()->getItems()[$dm];
-
-        if(!in_array($damager->getLevel()->getName(),$dm["worlds"])) return;
-
+        $dm = DM::getInstance()->getItem($dm);
         $ev->setModifier($damager->hasEffect(Effect::STRENGTH) ?
             $dm["damage"] * 0.3 * $damager->getEffect(Effect::STRENGTH)->getEffectLevel() :
             $dm["damage"] * 0.3, EntityDamageEvent::MODIFIER_STRENGTH);
@@ -37,7 +35,7 @@ class DamagedEvent implements Listener {
                 $victim->knockBack($victim, 0, $dm['knockback'], 0, 1);
             }
         }
-
+        
         if($dm['tip-on-hit'] !== "disable"){
             $text = str_replace(array('{VICTIM}'),array($victim->getName()),$dm['tip-on-hit']);
             if($dm['tip-chance'] == 0){
