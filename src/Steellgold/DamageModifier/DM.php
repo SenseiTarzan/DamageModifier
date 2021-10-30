@@ -12,6 +12,7 @@ use Steellgold\DamageModifier\events\DamagedEvent;
 
 class DM extends PluginBase {
     private string $version = "1.0";
+    private array $items;
 
     public static $instance;
 
@@ -26,10 +27,23 @@ class DM extends PluginBase {
         }
 
         $this->getServer()->getPluginManager()->registerEvents(new DamagedEvent(), $this);
+        $this->items = $this->getConfig()->get("items",[]);
     }
 
     public function getItems(): array {
-        return (new Config(self::getInstance()->getDataFolder() . "config.yml", Config::YAML))->get("items");
+        return $this->items;
+    }
+
+    public function InItems(string $key): bool {
+        return array_key_exists($key,$this->items);
+    }
+
+    public function getItem(string $key): array {
+        return $this->items[$key] ?? []; 
+    }
+
+    public function inWorld(Entity $entity, string $key): array {
+        return in_array($entity->getLevel()?->getName() ?? "", $this->items[$key]["worlds"] ?? []); 
     }
 
     public static function getInstance() : DM {
