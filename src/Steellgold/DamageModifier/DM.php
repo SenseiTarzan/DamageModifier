@@ -43,7 +43,7 @@ class DM extends PluginBase {
     }
 
     public function inWorld(Entity $entity, string $key): array {
-        return in_array($entity->getLevel()?->getName() ?? "", $this->items[$key]["worlds"] ?? []); 
+        return in_array($entity->getLevel()->getName() ?? "", $this->items[$key]["worlds"] ?? []); 
     }
 
     public static function getInstance() : DM {
