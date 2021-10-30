@@ -8,6 +8,8 @@ namespace Steellgold\DamageModifier;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
+use pocketmine\entity\Entity;
+use pocketmine\item\Item;
 use Steellgold\DamageModifier\events\DamagedEvent;
 
 class DM extends PluginBase {
