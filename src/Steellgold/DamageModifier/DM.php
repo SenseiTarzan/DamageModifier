@@ -44,7 +44,7 @@ class DM extends PluginBase {
         return $this->items[$key] ?? []; 
     }
 
-    public function inWorld(Entity $entity, string $key): array {
+    public function inWorld(Entity $entity, string $key): bool {
         return in_array($entity->getLevel()->getName() ?? "", $this->items[$key]["worlds"] ?? []); 
     }
 
