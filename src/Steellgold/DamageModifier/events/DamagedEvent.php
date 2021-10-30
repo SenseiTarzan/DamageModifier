@@ -31,19 +31,19 @@ class DamagedEvent implements Listener {
             $dm["damage"] * 0.3, EntityDamageEvent::MODIFIER_STRENGTH);
 
         if($dm['knockback'] !== 0){
-            if($dm['knockback-chance'] == 0) $victim->knockBack($victim, 0, $dm['knockback'], 0, 1);
-            else if(mt_rand(1, 100) <= $dm['knockback-chance']){
+            if($dm['knockback-chance'] == 0){
                 $victim->knockBack($victim, 0, $dm['knockback'], 0, 1);
-                var_dump("ccKnockback");
+            }elseif(mt_rand(1, 100) <= $dm['knockback-chance']){
+                $victim->knockBack($victim, 0, $dm['knockback'], 0, 1);
             }
         }
 
         if($dm['tip-on-hit'] !== "disable"){
             $text = str_replace(array('{VICTIM}'),array($victim->getName()),$dm['tip-on-hit']);
-            if($dm['tip-chance'] == 0) $damager->sendTip($text);
-            else if(mt_rand(1, 100) <= $dm['tip-chance']){
+            if($dm['tip-chance'] == 0){
                 $damager->sendTip($text);
-                var_dump("ccTip");
+            }elseif(mt_rand(1, 100) <= $dm['tip-chance']){
+                $damager->sendTip($text);
             }
         }
     }
